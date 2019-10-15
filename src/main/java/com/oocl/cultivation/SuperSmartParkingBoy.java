@@ -4,8 +4,6 @@ import java.util.List;
 
 public class SuperSmartParkingBoy extends ParkingBoy {
 
-    public static final String NOT_ENOUGH_POSITION = "Not enough position.";
-
     public SuperSmartParkingBoy(List<ParkingLot> parkingLotsToManage) {
         super(parkingLotsToManage);
     }

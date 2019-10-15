@@ -1,10 +1,11 @@
 package com.oocl.cultivation;
 
 import java.util.List;
+import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 public class SmartParkingBoy extends ParkingBoy {
-    //extract constsnts to a class
-    public static final String NOT_ENOUGH_POSITION = "Not enough position.";
 
     public SmartParkingBoy(List<ParkingLot> parkingLotsToManage) {
         super(parkingLotsToManage);
@@ -14,17 +15,15 @@ public class SmartParkingBoy extends ParkingBoy {
     public ParkingTicket park(Car car) {
         List<ParkingLot> parkingLotList = getParkingLotsToManage();
 
-        ParkingTicket ticket;
-        ParkingLot parkingLot = parkingLotList.stream().
-          reduce((a,b) -> a.getAvailableParkingPosition() > b.getAvailableParkingPosition() ? b : a).orElse(null);
-
-         if ( parkingLot.getAvailableParkingPosition() == 0) {
+        ParkingLot parkingLot = parkingLotList.stream()
+                .filter(parkingLotInList -> parkingLotInList.getAvailableParkingPosition() != 0)
+                .reduce((a,b) -> a.getAvailableParkingPosition() > b.getAvailableParkingPosition() ? b : a)
+                .orElse(null);
+         if (isNull(parkingLot)) {
                 setLastErrorMessage(NOT_ENOUGH_POSITION);
-                ticket = null;
-         } else {
-                ticket = parkingLot.park(car);
+                return null;
          }
-
-        return ticket;
+         
+        return parkingLot.park(car);
     }
 }

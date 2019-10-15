@@ -3,10 +3,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class ParkingBoy {
-    //private
-    public static final String NOT_ENOUGH_POSITION = "Not enough position.";
-    public static final String PLEASE_PROVIDE_YOUR_PARKING_TICKET = "Please provide your parking ticket";
-    public static final String UNRECOGNIZED_PARKING_TICKET = "Unrecognized parking ticket.";
+
+    static final String NOT_ENOUGH_POSITION = "Not enough position.";
+    private static final String PLEASE_PROVIDE_YOUR_PARKING_TICKET = "Please provide your parking ticket";
+    private static final String UNRECOGNIZED_PARKING_TICKET = "Unrecognized parking ticket.";
 
     public List<ParkingLot> getParkingLotsToManage() {
         return parkingLotsToManage;
