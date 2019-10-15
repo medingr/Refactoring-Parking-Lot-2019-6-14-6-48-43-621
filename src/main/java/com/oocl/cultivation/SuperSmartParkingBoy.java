@@ -3,6 +3,9 @@ package com.oocl.cultivation;
 import java.util.List;
 
 public class SuperSmartParkingBoy extends ParkingBoy {
+
+    public static final String NOT_ENOUGH_POSITION = "Not enough position.";
+
     public SuperSmartParkingBoy(List<ParkingLot> parkingLotsToManage) {
         super(parkingLotsToManage);
     }
@@ -17,7 +20,7 @@ public class SuperSmartParkingBoy extends ParkingBoy {
                         (b.getAvailableParkingPosition() / b.getCapacity())  ? b : a).orElse(null);
 
         if ( parkingLot.getAvailableParkingPosition() == 0) {
-            setLastErrorMessage("Not enough position.");
+            setLastErrorMessage(NOT_ENOUGH_POSITION);
             ticket = null;
         } else {
             ticket = parkingLot.park(car);

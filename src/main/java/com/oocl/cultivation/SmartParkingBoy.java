@@ -4,6 +4,8 @@ import java.util.List;
 
 public class SmartParkingBoy extends ParkingBoy {
 
+    public static final String NOT_ENOUGH_POSITION = "Not enough position.";
+
     public SmartParkingBoy(List<ParkingLot> parkingLotsToManage) {
         super(parkingLotsToManage);
     }
@@ -17,7 +19,7 @@ public class SmartParkingBoy extends ParkingBoy {
           reduce((a,b) -> a.getAvailableParkingPosition() > b.getAvailableParkingPosition() ? b : a).orElse(null);
 
          if ( parkingLot.getAvailableParkingPosition() == 0) {
-                setLastErrorMessage("Not enough position.");
+                setLastErrorMessage(NOT_ENOUGH_POSITION);
                 ticket = null;
          } else {
                 ticket = parkingLot.park(car);

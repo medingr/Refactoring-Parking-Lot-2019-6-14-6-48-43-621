@@ -1,10 +1,11 @@
 package com.oocl.cultivation;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParkingBoy {
+
+    public static final String NOT_ENOUGH_POSITION = "Not enough position.";
+    public static final String PLEASE_PROVIDE_YOUR_PARKING_TICKET = "Please provide your parking ticket";
+    public static final String UNRECOGNIZED_PARKING_TICKET = "Unrecognized parking ticket.";
 
     public List<ParkingLot> getParkingLotsToManage() {
         return parkingLotsToManage;
@@ -29,11 +30,12 @@ public class ParkingBoy {
             for (ParkingLot parkingLot : parkingLotsToManage)
             {
                 if ( parkingLot.getAvailableParkingPosition() == 0) {
-                    lastErrorMessage = "Not enough position.";
+                    lastErrorMessage = NOT_ENOUGH_POSITION;
                     ticket = null;
                 } else {
                     ticket = parkingLot.park(car);
                     break;
+
                 }
 
             }
@@ -44,7 +46,7 @@ public class ParkingBoy {
         Car car = new Car();
 
         if(ticket == null) {
-            lastErrorMessage = "Please provide your parking ticket";
+            lastErrorMessage = PLEASE_PROVIDE_YOUR_PARKING_TICKET;
             return null;
         }
 
@@ -59,7 +61,7 @@ public class ParkingBoy {
         }
 
         if(car == null){
-            lastErrorMessage = "Unrecognized parking ticket.";
+            lastErrorMessage = UNRECOGNIZED_PARKING_TICKET;
             return null;
         }
 
