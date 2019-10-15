@@ -3,7 +3,7 @@ package com.oocl.cultivation;
 import java.util.List;
 
 public class SmartParkingBoy extends ParkingBoy {
-
+    //extract constsnts to a class
     public static final String NOT_ENOUGH_POSITION = "Not enough position.";
 
     public SmartParkingBoy(List<ParkingLot> parkingLotsToManage) {
