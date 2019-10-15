@@ -9,6 +9,7 @@ public class ParkingLot {
     }
 
     private final int capacity;
+
     private Map<ParkingTicket, Car> cars = new HashMap<>();
 
     public ParkingLot() {

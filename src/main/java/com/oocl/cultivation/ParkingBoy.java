@@ -1,7 +1,6 @@
 package com.oocl.cultivation;
 import java.util.List;
-
-import static java.util.Objects.isNull;
+import java.util.Objects;
 
 public class ParkingBoy {
     //private
@@ -41,28 +40,16 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket ticket) {
-        Car car = new Car();
-            //method for checking then condition
+
         if(ticket == null) {
             lastErrorMessage = PLEASE_PROVIDE_YOUR_PARKING_TICKET;
             return null;
         }
-        //filter parking lot with ticket of car then fetch
-        for(ParkingLot parkingLot : parkingLotsToManage){
-            car = parkingLot.fetch(ticket);
-
-            if(car != null) {
-                return car;
-            }else{ //unnecessary
-                car = null;
-            }
-        }
-
+        Car car  = parkingLotsToManage.stream().map( lot -> lot.fetch(ticket)).filter(Objects::nonNull).findFirst().orElse(null);
         if(car == null){
             lastErrorMessage = UNRECOGNIZED_PARKING_TICKET;
             return null;
         }
-
         return car;
     }
 
