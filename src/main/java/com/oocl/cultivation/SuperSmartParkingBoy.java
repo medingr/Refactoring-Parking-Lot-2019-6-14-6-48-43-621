@@ -2,6 +2,8 @@ package com.oocl.cultivation;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 public class SuperSmartParkingBoy extends ParkingBoy {
 
     public SuperSmartParkingBoy(List<ParkingLot> parkingLotsToManage) {
@@ -12,20 +14,15 @@ public class SuperSmartParkingBoy extends ParkingBoy {
     public ParkingTicket park(Car car) {
         List<ParkingLot> parkingLotList = getParkingLotsToManage();
 
-        ParkingTicket ticket;
-        ParkingLot parkingLot = parkingLotList.stream().
-                reduce((a,b) -> ( a.getAvailableParkingPosition() / a.getCapacity() ) >
+        ParkingLot parkingLot = parkingLotList.stream()
+                .filter(parkingLotInList -> parkingLotInList.getAvailableParkingPosition() != 0)
+                .reduce((a,b) -> ( a.getAvailableParkingPosition() / a.getCapacity() ) >
                         (b.getAvailableParkingPosition() / b.getCapacity())  ? b : a).orElse(null);
 
-        if ( parkingLot.getAvailableParkingPosition() == 0) {
+        if (isNull(parkingLot)) {
             setLastErrorMessage(NOT_ENOUGH_POSITION);
-            ticket = null;
-        } else {
-            ticket = parkingLot.park(car);
+            return null;
         }
-
-        return ticket;
+        return parkingLot.park(car);
     }
-
-
 }
